@@ -4,6 +4,9 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.DriveSubsystem;
+import java.util.function.DoubleSupplier;
+import java.util.function.BooleanSupplier;
+
 
 /** The default drive command that uses the drive subsystem. */
 public class ArcadeDrive extends Command {
@@ -24,13 +27,13 @@ public class ArcadeDrive extends Command {
    * @param xbox_b_button
    * @param xbox_x_button
    */
-  public ArcadeDrive(DriveSubsystem d_subsystem, Double xbox_left_y, Double xbox_right_x, boolean xbox_left_b, boolean xbox_b_button, boolean xbox_x_button) {
+  public ArcadeDrive(DriveSubsystem d_subsystem, DoubleSupplier xbox_left_y, DoubleSupplier xbox_right_x, BooleanSupplier xbox_left_b, BooleanSupplier xbox_b_button, BooleanSupplier xbox_x_button) {
     m_driveSubsystem = d_subsystem;
-    m_left_y = xbox_left_y;
-    m_right_x = xbox_right_x;
-    m_left_b = xbox_left_b; // this gives us the left y axis for current controller
-    m_b_button = xbox_b_button; // this gives us the right y axis for current controller
-    m_x_button = xbox_x_button; // this gives us the left y axis for current controller
+    m_left_y = xbox_left_y.getAsDouble();
+    m_right_x = xbox_right_x.getAsDouble();
+    m_left_b = xbox_left_b.getAsBoolean(); // this gives us the left y axis for current controller
+    m_b_button = xbox_b_button.getAsBoolean(); // this gives us the right y axis for current controller
+    m_x_button = xbox_x_button.getAsBoolean(); // this gives us the left y axis for current controller
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(d_subsystem);
   }
